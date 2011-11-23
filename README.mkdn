@@ -1,0 +1,131 @@
+## Backbone.Routes
+
+You want to have a central place to control all your routing logic for
+your [Backbone][1] app. Then, Backbone.Routes is for you. This is a
+Backbone plugin that I created for my own use on one of the projects
+that I am working on now.
+
+## Warnings
+
+This plugin will replace some of the things that Backbone is
+doing now.
+
+For example:
+
+```coffeescript
+class YourApp.Routers.UsersRouter extends Backbone.Router
+  routes:
+    "/new": "new"
+```
+
+`routes` will not longer working once you start using Backbone.Routes
+with your Backbone app. So, what Backbone.Routes is useful for?
+
+## Features
+
+In fact, if you want to have a central place to control all your routing
+logic for Backbone. Backbone.Routes is a good plugin that you should
+use.
+
+Example:
+
+```coffeescript
+Backbone.Routes.prefix = YourApp.Routers
+
+# Matches from top to bottom.
+Backbone.Routes.map
+  "/":
+    "NavbarRouter": "index"
+    "HomeRouter": "index"
+
+  "/signin":
+    "NavbarRouter": "index"
+    "RegistrationRouter": "signin"
+
+  "/questions":
+    "NavbarRouter": "index"
+    "QuestionsRouter": "index"
+    "SidebarRouter"  : "new_questions"
+
+  "/:nick":
+    "NavbarRouter": "index"
+    "ProfilesRouter" : "index"
+    "SidebarRouter"  : "new_questions"
+```
+
+So, the first thing you have to set is the `prefix` for Backbone.Routes.
+The default is `window`. So, how is it used by Backbone.Routes. If you
+take a look at the first route: "/". There are `NavbarRouter` and
+`HomeRouter`. So, once you set the `prefix`, inside Backbone.Routes, it
+will call:
+
+```coffeescript
+Backbone.Routes.prefix = YourApp.Routers
+
+# a safer way than actually calling eval()
+
+# The following code is equivalent to
+# new YourApp.Routers.NavbarRouter()
+new Backbone.Routes.prefix["NavbarRouter"]() # string to class
+
+# and
+
+# The following code is equivalent to
+# new YourApp.Routers.HomeRouter()
+new Backbone.Routes.prefix["HomeRouter"]() # string to class
+```
+
+So, it also means that you don't have to initiate the Routers again
+anymore since Backbone.Routes will do the work for you.
+
+And, another cool thing about Backbone.Routes is that it matches routes
+from top to bottom. So, for the example above, only `/signin` will get
+called. On a traditional Backbone app, you will have to structure your
+Backbone app in the way that `/signin` is called before `/:nick` which
+is really annoying most of the time.
+
+So, you might want to ask, what the following code does?
+
+```coffeescript
+"/":
+  "NavbarRouter": "index"
+  "HomeRouter": "index"
+```
+
+Yes, it is exactly what you think it is. Two routers get called when the
+route `/` is hit. Why is this? I do this because I separated the logic
+for the navigation bar and the realy homepage. So, my code can be more
+modularized in the way that people who work on the navigation bar and
+the people who work on the homepage do not have to step on the foot of
+each other.
+
+More modularized code also means less commit conflicts and less points of
+failure.
+
+Let me know if you want to talk to me about this plugin. You can email
+me siong(1900+87) (at) gmail (dot) com.
+
+# LICENSE
+
+(The MIT License)
+
+Copyright (c) 2011 Teng Siong Ong
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
