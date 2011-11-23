@@ -1,4 +1,4 @@
-## Backbone.Routes
+# Backbone.Routes
 
 You want to have a central place to control all your routing logic for
 your [Backbone][1] app. Then, Backbone.Routes is for you. This is a
@@ -20,6 +20,20 @@ class YourApp.Routers.UsersRouter extends Backbone.Router
 
 `routes` will not longer working once you start using Backbone.Routes
 with your Backbone app. So, what Backbone.Routes is useful for?
+
+## Installation
+
+To install this, just load it after Backbone is loaded.
+
+For example in Rails 3.1,
+
+```javascript
+//= require jquery
+//= require jquery_ujs
+//= require underscore
+//= require backbone
+//= require backbone_routes
+```
 
 ## Features
 
@@ -84,7 +98,7 @@ called. On a traditional Backbone app, you will have to structure your
 Backbone app in the way that `/signin` is called before `/:nick` which
 is really annoying most of the time.
 
-# Concurrent Routers
+## Concurrent Routers
 
 So, you might want to ask, what the following code does?
 
@@ -104,10 +118,18 @@ each other.
 More modularized code also means less commit conflicts and less points of
 failure.
 
+## Help/Issues
+
+The code is extremely simple. Just read the source code if you have any
+questions. Or, you can create a GitHub issue, I will look at them as
+soon as I have the time.
+
+## Contact
+
 Let me know if you want to talk to me about this plugin. You can email
 me siong(1900+87) (at) gmail (dot) com.
 
-# LICENSE
+## LICENSE
 
 (The MIT License)
 
