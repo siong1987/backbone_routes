@@ -84,6 +84,8 @@ called. On a traditional Backbone app, you will have to structure your
 Backbone app in the way that `/signin` is called before `/:nick` which
 is really annoying most of the time.
 
+# Concurrent Routers
+
 So, you might want to ask, what the following code does?
 
 ```coffeescript
