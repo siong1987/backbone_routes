@@ -118,6 +118,46 @@ each other.
 More modularized code also means less commit conflicts and less points of
 failure.
 
+## Caching
+
+Backbone.Routes supports caching too. For example, if you have code
+similar as:
+
+```coffeescript
+# Matches from top to bottom.
+Backbone.Routes.map
+  "/":
+    "NavbarRouter": "index"
+    "HomeRouter": "index"
+
+  "/signin":
+    "NavbarRouter": "index"
+    "RegistrationRouter": "signin"
+```
+
+You notice that `NavbarRouter#index` is called at least two times. And, one
+thing is that `NavbarRouter#index` is static. The content of it doesn't
+change. So, why should Backbone rerender it everytime?
+
+So, to cache that particular action `NavbarRouter#index`, you can do:
+
+```coffeescript
+class NavbarRouter extends Backbone.Router
+  cache: ["index"]
+
+  index: ->
+    # blah blah blah...
+```
+
+Notice the `cache` keyword here, it is used to cache the `index` action
+in this particular router `NavbarRouter`. Once you use the `cache`
+keyword, `NavbarRouter#index` will only be loaded for the first time,
+any subsequent call to `NavbarRouter#index` will be cached.
+
+Notice that the caching only work for the subsequent call. If
+`NavbarRouter#index` isn't called for the subsequent call. It will be
+purged from the cache.
+
 ## Help/Issues
 
 The code is extremely simple. Just read the source code if you have any
