@@ -1,0 +1,246 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Backbone.Routes by siong1987</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Backbone.Routes</h1>
+        <p>Rails like central routing control for Backbone.</p>
+        <p class="view"><a href="https://github.com/siong1987/backbone_routes">View the Project on GitHub <small>siong1987/backbone_routes</small></a></p>
+        <ul>
+          <li><a href="https://github.com/siong1987/backbone_routes/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/siong1987/backbone_routes/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/siong1987/backbone_routes">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Introduction</h1>
+
+<p>You want to have a central place to control all your routing logic for
+your <a href="http://documentcloud.github.com/backbone/">Backbone</a> app. Then, Backbone.Routes is for you. This is a
+Backbone plugin that I created for my own use on one of the projects
+that I am working on now.</p>
+
+<h2>Warnings</h2>
+
+<p>This plugin will replace some of the things that Backbone is
+doing now.</p>
+
+<p>For example:</p>
+
+<div class="highlight">
+<pre><span class="k">class</span> <span class="nx">YourApp</span><span class="p">.</span><span class="nx">Routers</span><span class="p">.</span><span class="nx">UsersRouter</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Router</span>
+  <span class="nv">routes:</span>
+    <span class="s">"/new"</span><span class="o">:</span> <span class="s">"new"</span>
+</pre>
+</div>
+
+
+<p><code>routes</code> will not longer working once you start using Backbone.Routes
+with your Backbone app. So, what Backbone.Routes is useful for?</p>
+
+<h2>Installation</h2>
+
+<p>To install this, just load it after Backbone is loaded.</p>
+
+<p>For example in Rails 3.1,</p>
+
+<div class="highlight">
+<pre><span class="c1">//= require jquery</span>
+<span class="c1">//= require jquery_ujs</span>
+<span class="c1">//= require underscore</span>
+<span class="c1">//= require backbone</span>
+<span class="c1">//= require backbone_routes</span>
+</pre>
+</div>
+
+
+<h2>Features</h2>
+
+<p>In fact, if you want to have a central place to control all your routing
+logic for Backbone. Backbone.Routes is a good plugin that you should
+use.</p>
+
+<p>Example:</p>
+
+<div class="highlight">
+<pre><span class="nv">Backbone.Routes.prefix = </span><span class="nx">YourApp</span><span class="p">.</span><span class="nx">Routers</span>
+
+<span class="c1"># Matches from top to bottom.</span>
+<span class="nx">Backbone</span><span class="p">.</span><span class="nx">Routes</span><span class="p">.</span><span class="nx">map</span>
+  <span class="s">"/"</span><span class="o">:</span>
+    <span class="s">"NavbarRouter"</span><span class="o">:</span> <span class="s">"index"</span>
+    <span class="s">"HomeRouter"</span><span class="o">:</span> <span class="s">"index"</span>
+
+  <span class="s">"/signin"</span><span class="o">:</span>
+    <span class="s">"NavbarRouter"</span><span class="o">:</span> <span class="s">"index"</span>
+    <span class="s">"RegistrationRouter"</span><span class="o">:</span> <span class="s">"signin"</span>
+
+  <span class="s">"/questions"</span><span class="o">:</span>
+    <span class="s">"NavbarRouter"</span><span class="o">:</span> <span class="s">"index"</span>
+    <span class="s">"QuestionsRouter"</span><span class="o">:</span> <span class="s">"index"</span>
+    <span class="s">"SidebarRouter"</span>  <span class="o">:</span> <span class="s">"new_questions"</span>
+
+  <span class="s">"/:nick"</span><span class="o">:</span>
+    <span class="s">"NavbarRouter"</span><span class="o">:</span> <span class="s">"index"</span>
+    <span class="s">"ProfilesRouter"</span> <span class="o">:</span> <span class="s">"index"</span>
+    <span class="s">"SidebarRouter"</span>  <span class="o">:</span> <span class="s">"new_questions"</span>
+</pre>
+</div>
+
+
+<p>So, the first thing you have to set is the <code>prefix</code> for Backbone.Routes.
+The default is <code>window</code>. So, how is it used by Backbone.Routes. If you
+take a look at the first route: "/". There are <code>NavbarRouter</code> and
+<code>HomeRouter</code>. So, once you set the <code>prefix</code>, inside Backbone.Routes, it
+will call:</p>
+
+<div class="highlight">
+<pre><span class="nv">Backbone.Routes.prefix = </span><span class="nx">YourApp</span><span class="p">.</span><span class="nx">Routers</span>
+
+<span class="c1"># a safer way than actually calling eval()</span>
+
+<span class="c1"># The following code is equivalent to</span>
+<span class="c1"># new YourApp.Routers.NavbarRouter()</span>
+<span class="k">new</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Routes</span><span class="p">.</span><span class="nx">prefix</span><span class="p">[</span><span class="s">"NavbarRouter"</span><span class="p">]()</span> <span class="c1"># string to class</span>
+
+<span class="c1"># and</span>
+
+<span class="c1"># The following code is equivalent to</span>
+<span class="c1"># new YourApp.Routers.HomeRouter()</span>
+<span class="k">new</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Routes</span><span class="p">.</span><span class="nx">prefix</span><span class="p">[</span><span class="s">"HomeRouter"</span><span class="p">]()</span> <span class="c1"># string to class</span>
+</pre>
+</div>
+
+
+<p>So, it also means that you don't have to initiate the Routers again
+anymore since Backbone.Routes will do the work for you.</p>
+
+<p>And, another cool thing about Backbone.Routes is that it matches routes
+from top to bottom. So, for the example above, only <code>/signin</code> will get
+called. On a traditional Backbone app, you will have to structure your
+Backbone app in the way that <code>/signin</code> is called before <code>/:nick</code> which
+is really annoying most of the time.</p>
+
+<h2>Concurrent Routers</h2>
+
+<p>So, you might want to ask, what the following code does?</p>
+
+<div class="highlight">
+<pre><span class="s">"/"</span><span class="o">:</span>
+  <span class="s">"NavbarRouter"</span><span class="o">:</span> <span class="s">"index"</span>
+  <span class="s">"HomeRouter"</span><span class="o">:</span> <span class="s">"index"</span>
+</pre>
+</div>
+
+
+<p>Yes, it is exactly what you think it is. Two routers get called when the
+route <code>/</code> is hit. Why is this? I do this because I separated the logic
+for the navigation bar and the realy homepage. So, my code can be more
+modularized in the way that people who work on the navigation bar and
+the people who work on the homepage do not have to step on the foot of
+each other.</p>
+
+<p>More modularized code also means less commit conflicts and less points of
+failure.</p>
+
+<h2>Caching</h2>
+
+<p>Backbone.Routes supports caching too. For example, if you have code
+similar as:</p>
+
+<div class="highlight">
+<pre><span class="c1"># Matches from top to bottom.</span>
+<span class="nx">Backbone</span><span class="p">.</span><span class="nx">Routes</span><span class="p">.</span><span class="nx">map</span>
+  <span class="s">"/"</span><span class="o">:</span>
+    <span class="s">"NavbarRouter"</span><span class="o">:</span> <span class="s">"index"</span>
+    <span class="s">"HomeRouter"</span><span class="o">:</span> <span class="s">"index"</span>
+
+  <span class="s">"/signin"</span><span class="o">:</span>
+    <span class="s">"NavbarRouter"</span><span class="o">:</span> <span class="s">"index"</span>
+    <span class="s">"RegistrationRouter"</span><span class="o">:</span> <span class="s">"signin"</span>
+</pre>
+</div>
+
+
+<p>You notice that <code>NavbarRouter#index</code> is called at least two times. And, one
+thing is that <code>NavbarRouter#index</code> is static. The content of it doesn't
+change. So, why should Backbone rerender it everytime?</p>
+
+<p>So, to cache that particular action <code>NavbarRouter#index</code>, you can do:</p>
+
+<div class="highlight">
+<pre><span class="k">class</span> <span class="nx">NavbarRouter</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Router</span>
+  <span class="nv">cache: </span><span class="p">[</span><span class="s">"index"</span><span class="p">]</span>
+
+  <span class="nv">index: </span><span class="o">-&gt;</span>
+    <span class="c1"># blah blah blah...</span>
+</pre>
+</div>
+
+
+<p>Notice the <code>cache</code> keyword here, it is used to cache the <code>index</code> action
+in this particular router <code>NavbarRouter</code>. Once you use the <code>cache</code>
+keyword, <code>NavbarRouter#index</code> will only be loaded for the first time,
+any subsequent call to <code>NavbarRouter#index</code> will be cached.</p>
+
+<p>Notice that the caching only work for the subsequent call. If
+<code>NavbarRouter#index</code> isn't called for the subsequent call. It will be
+purged from the cache.</p>
+
+<h2>Help/Issues</h2>
+
+<p>The code is extremely simple. Just read the source code if you have any
+questions. Or, you can create a GitHub issue, I will look at them as
+soon as I have the time.</p>
+
+<h2>Contact</h2>
+
+<p>Let me know if you want to talk to me about this plugin. You can email
+me siong(1900+87) (at) gmail (dot) com.</p>
+
+<h2>LICENSE</h2>
+
+<p>(The MIT License)</p>
+
+<p>Copyright (c) 2012 Teng Siong Ong</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/siong1987">siong1987</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
