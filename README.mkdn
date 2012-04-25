@@ -173,7 +173,7 @@ me siong(1900+87) (at) gmail (dot) com.
 
 (The MIT License)
 
-Copyright (c) 2011 Teng Siong Ong
+Copyright (c) 2012 Teng Siong Ong
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
