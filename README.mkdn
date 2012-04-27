@@ -3,7 +3,8 @@
 You want to have a central place to control all your routing logic for
 your [Backbone][1] app. Then, Backbone.Routes is for you. This is a
 Backbone plugin that I created for my own use on one of the projects
-that I am working on now.
+that I am working on now. You can also check out the [introduction blog 
+post][2].
 
 ## Warnings
 
@@ -195,3 +196,4 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [1]: http://documentcloud.github.com/backbone/
+[2]: http://siong1987.com/posts/introducting-backbone-routes/
