@@ -36,6 +36,10 @@ For example in Rails 3.1,
 //= require backbone_routes
 ```
 
+## Example
+
+You can check out [forkbin][3] to see how Backbone.Routes works.
+
 ## Features
 
 In fact, if you want to have a central place to control all your routing
@@ -197,3 +201,4 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [1]: http://documentcloud.github.com/backbone/
 [2]: http://siong1987.com/posts/introducting-backbone-routes/
+[3]: https://github.com/siong1987/forkbin
