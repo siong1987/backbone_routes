@@ -73,7 +73,7 @@ Backbone.Routes.map
 ```
 
 So, the first thing you have to set is the `prefix` for Backbone.Routes.
-The default is `window`. So, how is it used by Backbone.Routes. If you
+The default is `window`. So, how it is used by Backbone.Routes. If you
 take a look at the first route: "/". There are `NavbarRouter` and
 `HomeRouter`. So, once you set the `prefix`, inside Backbone.Routes, it
 will call:
@@ -115,7 +115,7 @@ So, you might want to ask, what the following code does?
 
 Yes, it is exactly what you think it is. Two routers get called when the
 route `/` is hit. Why is this? I do this because I separated the logic
-for the navigation bar and the realy homepage. So, my code can be more
+for the navigation bar and the real homepage. So, my code can be more
 modularized in the way that people who work on the navigation bar and
 the people who work on the homepage do not have to step on the foot of
 each other.
