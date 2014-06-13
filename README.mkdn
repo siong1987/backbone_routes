@@ -1,7 +1,7 @@
 # Backbone.Routes
 
 You want to have a central place to control all your routing logic for
-your [Backbone][1] app. Then, Backbone.Routes is for you. This is a
+your [Backbone][1] app. Then, Backbone.Routes is made for you. This is a
 Backbone plugin that I created for my own use on one of the projects
 that I am working on now. You can also check out the [introduction blog 
 post][2].
@@ -19,7 +19,7 @@ class YourApp.Routers.UsersRouter extends Backbone.Router
     "/new": "new"
 ```
 
-`routes` will not longer working once you start using Backbone.Routes
+`routes` will not longer be working once you start using Backbone.Routes
 with your Backbone app. So, what Backbone.Routes is useful for?
 
 ## Installation
